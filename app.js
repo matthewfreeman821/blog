@@ -93,6 +93,20 @@ app.put('/blogs/:id', function(req, res) {
     });
 })
 
+// DELETE ROUTE
+app.delete('/blogs/:id', function(req, res) {
+    //Destroy the blog
+    Blog.findOneAndDelete(req.params.id, function(err) {
+        if(err) {
+            console.log(err);
+            res.redirect('/blogs');
+        } else {
+            //redirect somewhere
+            res.redirect('/blogs');
+        }
+    });
+});
+
 app.listen(4000, function(){
     console.log('Server running on localhost 4000')
 });

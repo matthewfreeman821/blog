@@ -18,8 +18,26 @@ var blogSchema = new mongoose.Schema({
 });
 var Blog = mongoose.model('Blog', blogSchema);
 
-//Restful Routes
+// Blog.create({
+//     title: 'Test blog',
+//     image: 'https://farm5.staticflickr.com/4045/4234417469_ce298ae056.jpg',
+//     body: 'Hello! This is a blog post!'
+// });
 
+//Restful Routes
+app.get('/', function(req, res){
+    res.redirect('/blogs');
+})
+
+app.get('/blogs', function(req, res){
+    Blog.find({}, function(err, blogs) {
+        if(err) {
+            console.log(err);
+        } else {
+            res.render('index', {blogs: blogs});
+        }
+    });
+});
 
 app.listen(4000, function(){
     console.log('Server running on localhost 4000')
